@@ -35,6 +35,7 @@ export default [
          ],
          'react/prop-types': 'off',
          'no-unused-vars': ['warn', { varsIgnorePattern: '^_' }],
+         'import/no-unused-modules': [1, { unusedExports: true }],
       },
    },
 ]

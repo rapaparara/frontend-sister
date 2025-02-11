@@ -44,7 +44,7 @@ const Navbar = () => {
 
    return (
       <div
-         className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-350 ${
+         className={`navbar fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
             isScrolled
                ? 'bg-base-100 text-base-content shadow-md'
                : 'bg-transparent text-base-100'
