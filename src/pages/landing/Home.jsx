@@ -9,7 +9,7 @@ const LandingPage = () => {
          {/* Hero Section */}
          <AnimatedSection>
             <div
-               className="hero min-h-[120vh] bg-cover bg-center bg-fixed"
+               className="hero min-h-[60vh] lg:min-h-[120vh] bg-cover bg-center bg-fixed"
                style={{ backgroundImage: "url('/bg_home1.jpg')" }}
             >
                <div className="hero-overlay bg-black bg-opacity-50"></div>
@@ -27,40 +27,126 @@ const LandingPage = () => {
             </div>
          </AnimatedSection>
 
-         {/* About Section */}
-         <AnimatedSection delay={400}>
-            <div id="about" className="container mx-auto py-12 px-6">
-               <h2 className="text-3xl font-bold text-center mb-8">
-                  Tentang Kami
-               </h2>
+         {/* Sambutan Section */}
+         <AnimatedSection delay={200}>
+            <div id="sambutan" className="container mx-auto py-12 px-6">
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="card bg-base-100 shadow-lg p-6 border border-base-300">
-                     <div className="card-body">
-                        <h3 className="font-semibold text-xl mb-4">
-                           Visi dan Misi
-                        </h3>
-                        <p className="text-sm">
-                           Visi: Menjadi sekolah unggulan yang menghasilkan
-                           generasi berkarakter dan berprestasi.
-                        </p>
-                        <p className="text-sm mt-2">
-                           Misi: Memberikan pendidikan berkualitas,
-                           mengembangkan potensi siswa, dan membangun lingkungan
-                           belajar yang inovatif.
-                        </p>
+                  <div className="p-4">
+                     <div className="flex items-start">
+                        {/* Gambar di kiri */}
+                        <img
+                           src="/image_kepsek.jpg"
+                           alt="Kepala Sekolah"
+                           className="w-48 h-auto max-h-64 object-cover mr-4 rounded-lg"
+                        />
+
+                        {/* Teks di kanan gambar */}
+                        <div className="flex-1">
+                           <h3 className="font-bold text-2xl mb-3">
+                              Sambutan Kepala Sekolah
+                           </h3>
+                           <p className="text-md">
+                              Berdiri sejak tahun 1980, SDN 1 Kota Timur telah
+                              menjadi salah satu sekolah dasar terbaik di
+                              wilayah ini. Kami terus berkomitmen untuk
+                              memberikan pendidikan terbaik bagi generasi
+                              muda.Berdiri sejak tahun 1980, SDN 1 Kota Timur
+                              telah menjadi salah satu sekolah dasar terbaik di
+                              wilayah ini. Kami terus berkomitmen untuk
+                              memberikan pendidikan terbaik bagi generasi
+                              muda.Berdiri sejak tahun 1980, SDN 1 Kota Timur
+                              telah menjadi salah satu sekolah dasar terbaik di
+                              wilayah ini. Kami terus berkomitmen untuk
+                              memberikan pendidikan terbaik bagi generasi muda.
+                           </p>
+                        </div>
                      </div>
                   </div>
-                  <div className="card bg-base-100 shadow-lg p-6 border border-base-300">
-                     <div className="card-body">
-                        <h3 className="font-semibold text-xl mb-4">
-                           Sejarah Sekolah
-                        </h3>
-                        <p className="text-sm">
-                           Berdiri sejak tahun 1980, SDN 1 Kota Timur telah
-                           menjadi salah satu sekolah dasar terbaik di wilayah
-                           ini. Kami terus berkomitmen untuk memberikan
-                           pendidikan terbaik bagi generasi muda.
-                        </p>
+                  <div className="card bg-base-100 shadow-md">
+                     <div className="card bg-base-100 shadow-md border border-base-300">
+                        <div className="bg-primary text-white px-4 py-3 rounded-t-lg">
+                           <h2 className="text-xl font-bold">Pengumuman</h2>
+                        </div>
+
+                        <div className="p-4">
+                           <ul className="divide-y divide-base-300">
+                              <li>
+                                 <a
+                                    href="#"
+                                    className="flex items-center gap-4 py-3 hover:bg-base-200 rounded-lg px-2"
+                                 >
+                                    <img
+                                       src="bg_home1.jpg"
+                                       alt="Berita 1"
+                                       className="w-16 h-16 object-cover rounded-md border border-base-300"
+                                    />
+                                    <p className="flex-1 text-sm font-medium text-base-content">
+                                       PENILAIAN AKHIR SEMESTER GANJIL T.P.
+                                       2024/2025
+                                    </p>
+                                 </a>
+                              </li>
+
+                              <li>
+                                 <a
+                                    href="#"
+                                    className="flex items-center gap-4 py-3 hover:bg-base-200 rounded-lg px-2"
+                                 >
+                                    <img
+                                       src="bg_home1.jpg"
+                                       alt="Berita 2"
+                                       className="w-16 h-16 object-cover rounded-md border border-base-300"
+                                    />
+                                    <p className="flex-1 text-sm font-medium text-base-content">
+                                       PENILAIAN TENGAH SEMESTER GANJIL T.P.
+                                       2024/2025
+                                    </p>
+                                 </a>
+                              </li>
+
+                              <li>
+                                 <a
+                                    href="#"
+                                    className="flex items-center gap-4 py-3 hover:bg-base-200 rounded-lg px-2"
+                                 >
+                                    <img
+                                       src="bg_home1.jpg"
+                                       alt="Berita 3"
+                                       className="w-16 h-16 object-cover rounded-md border border-base-300"
+                                    />
+                                    <p className="flex-1 text-sm font-medium text-base-content">
+                                       REV. JADWAL KBM SEMESTER GANJIL TP.
+                                       2024/2025 DAN DENAH...
+                                    </p>
+                                 </a>
+                              </li>
+
+                              <li>
+                                 <a
+                                    href="#"
+                                    className="flex items-center gap-4 py-3 hover:bg-base-200 rounded-lg px-2"
+                                 >
+                                    <img
+                                       src="bg_home1.jpg"
+                                       alt="Berita 4"
+                                       className="w-16 h-16 object-cover rounded-md border border-base-300"
+                                    />
+                                    <p className="flex-1 text-sm font-medium text-base-content">
+                                       PENGUMUMAN PEMBAGIAN KELAS X/ FASE E
+                                    </p>
+                                 </a>
+                              </li>
+                           </ul>
+
+                           <div className="mt-4">
+                              <a
+                                 href="#"
+                                 className="text-primary font-semibold text-sm hover:underline"
+                              >
+                                 Baca Selengkapnya &raquo;
+                              </a>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -68,15 +154,15 @@ const LandingPage = () => {
          </AnimatedSection>
 
          {/* Programs Section */}
-         <AnimatedSection delay={600}>
+         <AnimatedSection delay={300}>
             <div
                id="programs"
-               className="container bg-base-300 min-w-full mx-auto py-12 px-6"
+               className="container bg-primary text-base-100 min-w-full mx-auto py-12 px-6"
             >
                <h2 className="text-3xl font-bold text-center mb-8">
                   Program Unggulan
                </h2>
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-base-content">
                   <div className="card bg-base-100 shadow-lg p-6 border border-base-300">
                      <div className="card-body items-center text-center">
                         <div className="text-4xl">📚</div>
@@ -118,7 +204,7 @@ const LandingPage = () => {
          </AnimatedSection>
 
          {/* Gallery Section */}
-         <AnimatedSection delay={800}>
+         <AnimatedSection delay={300}>
             <div id="gallery" className="container mx-auto py-12 px-6">
                <h2 className="text-3xl font-bold text-center mb-8">
                   Galeri Sekolah
@@ -150,7 +236,7 @@ const LandingPage = () => {
          </AnimatedSection>
 
          {/* Contact Section */}
-         <AnimatedSection delay={1000}>
+         <AnimatedSection delay={300}>
             <div id="contact" className="container mx-auto py-12 px-6">
                <h2 className="text-3xl font-bold text-center mb-8">
                   Hubungi Kami
