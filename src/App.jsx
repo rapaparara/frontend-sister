@@ -3,6 +3,8 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { TitleProvider } from './context/TitleContext'
 import AdminLayout from './components/AdminLayout'
+import ProtectedRoute from './pages/auth/ProtectedRoute'
+import GuestRoute from './pages/auth/GuestRoute'
 const AdminHome = lazy(() => import('./pages/admin/Home'))
 const AdminPengguna = lazy(() => import('./pages/admin/Pengguna'))
 const Login = lazy(() => import('./pages/auth/Login'))
@@ -41,21 +43,29 @@ const App = () => {
             <Router>
                <Routes>
                   {/* Route untuk Guest */}
-                  <Route path="login" element={<Login />} />
+                  <Route element={<GuestRoute />}>
+                     <Route path="login" element={<Login />} />
+                  </Route>
                   <Route path="/" element={<LandingPage />} />
                   {/* Layout untuk Admin */}
-                  <Route path="/admin" element={<AdminLayout />}>
-                     <Route index title="Dashboard" element={<AdminHome />} />
-                     <Route
-                        path="home"
-                        title="Dashboard"
-                        element={<AdminHome />}
-                     />
-                     <Route
-                        path="pengguna"
-                        title="Pengguna"
-                        element={<AdminPengguna />}
-                     />
+                  <Route element={<ProtectedRoute />}>
+                     <Route path="/admin" element={<AdminLayout />}>
+                        <Route
+                           index
+                           title="Dashboard"
+                           element={<AdminHome />}
+                        />
+                        <Route
+                           path="home"
+                           title="Dashboard"
+                           element={<AdminHome />}
+                        />
+                        <Route
+                           path="pengguna"
+                           title="Pengguna"
+                           element={<AdminPengguna />}
+                        />
+                     </Route>
                   </Route>
                </Routes>
             </Router>

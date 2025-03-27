@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react'
+import { login } from '../../services/authService'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
    const [theme, setTheme] = useState('light')
+   const [email, setEmail] = useState('')
+   const [password, setPassword] = useState('')
+   const [loading, setLoading] = useState(false)
+   const [error, setError] = useState('')
+   const navigate = useNavigate()
 
    useEffect(() => {
       const storedTheme = localStorage.getItem('theme')
@@ -13,6 +20,23 @@ const Login = () => {
          storedTheme || 'light'
       )
    }, [])
+
+   const handleLogin = async () => {
+      setLoading(true)
+      setError('')
+      try {
+         const response = await login(email, password)
+         if (response.access_token) {
+            localStorage.setItem('access_token', response.access_token)
+         }
+         // alert('Login berhasil!')
+         navigate('/admin')
+      } catch (err) {
+         setError('Login gagal. Periksa email dan password Anda.')
+      } finally {
+         setLoading(false)
+      }
+   }
 
    return (
       <div className="flex items-center justify-center min-h-screen bg-base-200">
@@ -40,6 +64,8 @@ const Login = () => {
                   type="email"
                   placeholder="Enter your email"
                   className="input input-bordered focus:input-primary"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                />
             </div>
 
@@ -51,11 +77,21 @@ const Login = () => {
                   type="password"
                   placeholder="Enter your password"
                   className="input input-bordered focus:input-primary"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                />
             </div>
 
             <div className="form-control mt-6">
-               <button className="btn btn-primary w-full">Login</button>
+               <button
+                  className={`btn btn-primary w-full ${
+                     loading ? 'btn-disabled' : ''
+                  }`}
+                  onClick={handleLogin}
+                  disabled={loading}
+               >
+                  {loading ? 'Logging in...' : 'Login'}
+               </button>
             </div>
          </div>
       </div>
