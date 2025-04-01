@@ -5,6 +5,7 @@ import { TitleProvider } from './context/TitleContext'
 import AdminLayout from './components/AdminLayout'
 import ProtectedRoute from './pages/auth/ProtectedRoute'
 import GuestRoute from './pages/auth/GuestRoute'
+import { ToastContainer } from 'react-toastify'
 const AdminHome = lazy(() => import('./pages/admin/Home'))
 const AdminPengguna = lazy(() => import('./pages/admin/Pengguna'))
 const Login = lazy(() => import('./pages/auth/Login'))
@@ -41,6 +42,17 @@ const App = () => {
             }
          >
             <Router>
+               <ToastContainer
+                  position="top-right"
+                  autoClose={1000}
+                  hideProgressBar={false}
+                  newestOnTop
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+               />
                <Routes>
                   {/* Route untuk Guest */}
                   <Route element={<GuestRoute />}>

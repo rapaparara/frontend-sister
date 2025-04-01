@@ -1,9 +1,18 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../context/TitleContext'
 import ThemeSelector from '../../utils/ThemeSelector'
+import { toast } from 'react-toastify'
 
 const Sidebar = ({ children }) => {
    const { title } = useTitle()
+   const navigate = useNavigate()
+
+   const handleLogout = () => {
+      localStorage.removeItem('access_token')
+      toast.success('Berhasil keluar!')
+      navigate('/login')
+   }
+
    return (
       <div className="drawer lg:drawer-open">
          <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -59,7 +68,13 @@ const Sidebar = ({ children }) => {
                         <a>Settings</a>
                      </li>
                      <li>
-                        <a>Logout</a>
+                        <a
+                           href="#"
+                           onClick={handleLogout}
+                           style={{ cursor: 'pointer' }}
+                        >
+                           Logout
+                        </a>
                      </li>
                   </ul>
                </div>

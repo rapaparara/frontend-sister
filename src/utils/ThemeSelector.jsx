@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const ThemeSelector = () => {
-   const themes = ['light', 'dark', 'cupcake', 'retro', 'aqua']
-
+   const themes = ['light', 'dark']
    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
 
    useEffect(() => {

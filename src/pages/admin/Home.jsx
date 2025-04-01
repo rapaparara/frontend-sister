@@ -3,11 +3,9 @@ import Breadcrumbs from '../../components/admin/Breadcrumbs'
 import Footer from '../../components/admin/Footer'
 import DynamicTable from '../../components/admin/DynamicTable'
 import Modal from '../../components/admin/Modal'
-import StatsCard from '../../components/admin/StatsCard'
 const Home = () => {
    const [data, setData] = useState([])
    const [searchQuery, setSearchQuery] = useState('')
-
    // Sample Table Field
    const columns = [
       { label: 'Name', field: 'name' },
@@ -55,10 +53,9 @@ const Home = () => {
    const handleOpenModal = (mode, user = null) => {
       setMode(mode)
       if (mode === 'edit' && user) {
-         setFormData(user) // Isi form dengan data user yang akan diedit
+         setFormData(user)
       } else {
          setFormData({
-            // Reset form untuk tambah data
             id: '',
             nama: '',
             email: '',
@@ -109,30 +106,6 @@ const Home = () => {
          value.toString().toLowerCase().includes(searchQuery.toLowerCase())
       )
    )
-   // Sample Cards Data
-   const statsData = [
-      {
-         title: 'Total Pengguna',
-         value: '10,000',
-         icon: 'fas fa-users',
-         iconBg: 'bg-blue-100',
-         iconColor: 'text-blue-600',
-      },
-      {
-         title: 'Total Pesanan',
-         value: '2,450',
-         icon: 'fas fa-shopping-cart',
-         iconBg: 'bg-green-100',
-         iconColor: 'text-green-600',
-      },
-      {
-         title: 'Pendapatan',
-         value: 'Rp 250Jt',
-         icon: 'fas fa-wallet',
-         iconBg: 'bg-purple-100',
-         iconColor: 'text-purple-600',
-      },
-   ]
 
    return (
       <>
@@ -141,11 +114,7 @@ const Home = () => {
                <Breadcrumbs />
                <div className="text-lg font-semibold p-2">Stats Cards</div>
                <div className="container mx-auto mb-3 px-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                     {statsData.map((stat, index) => (
-                        <StatsCard key={index} {...stat} />
-                     ))}
-                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
                </div>
                <div className="text-lg font-semibold p-2">Dynamic Table</div>
                <DynamicTable

@@ -6,13 +6,13 @@ export default {
    theme: {
       extend: {
          fontFamily: {
-            sans: ['Open Sans', ...defaultTheme.fontFamily.sans], // Tambahkan font baru
+            sans: ['Open Sans', ...defaultTheme.fontFamily.sans],
          },
       },
    },
    plugins: [daisyui],
    daisyui: {
-      themes: ['light', 'dark', 'cupcake', 'retro', 'aqua'],
+      themes: ['light', 'dark'],
    },
 }
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { login } from '../../services/authService'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Login = () => {
    const [theme, setTheme] = useState('light')
@@ -29,7 +30,7 @@ const Login = () => {
          if (response.access_token) {
             localStorage.setItem('access_token', response.access_token)
          }
-         // alert('Login berhasil!')
+         toast.success('Berhasil masuk!')
          navigate('/admin')
       } catch (err) {
          setError('Login gagal. Periksa email dan password Anda.')
@@ -55,6 +56,25 @@ const Login = () => {
             <p className="text-sm text-center text-base-content/60">
                Login to continue
             </p>
+
+            {error && (
+               <div className="mt-4 alert alert-error">
+                  <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     className="stroke-current shrink-0 h-6 w-6"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                  >
+                     <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                     />
+                  </svg>
+                  <span className="text-sm">{error}</span>
+               </div>
+            )}
 
             <div className="form-control mt-4">
                <label className="label">
