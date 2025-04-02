@@ -8,6 +8,7 @@ import GuestRoute from './pages/auth/GuestRoute'
 import { ToastContainer } from 'react-toastify'
 const AdminHome = lazy(() => import('./pages/admin/Home'))
 const AdminPengguna = lazy(() => import('./pages/admin/Pengguna'))
+const AdminRole = lazy(() => import('./pages/admin/Role'))
 const Login = lazy(() => import('./pages/auth/Login'))
 const LandingPage = lazy(() => import('./pages/landing/Home'))
 
@@ -76,6 +77,11 @@ const App = () => {
                            path="pengguna"
                            title="Pengguna"
                            element={<AdminPengguna />}
+                        />
+                        <Route
+                           path="role"
+                           title="Role"
+                           element={<AdminRole />}
                         />
                      </Route>
                   </Route>

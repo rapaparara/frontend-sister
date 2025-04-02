@@ -103,10 +103,33 @@ const Sidebar = ({ children }) => {
                   </NavLink>
                </li>
                <li className="mb-2">
-                  <NavLink to="/admin/pengguna" className="flex items-center">
-                     <i className="fa-solid fa-users text-lg"></i>
-                     <span className="ml-2">Pengguna</span>
-                  </NavLink>
+                  <details>
+                     <summary className="flex items-center">
+                        <i className="fa-solid fa-users-cog text-lg"></i>
+                        <span className="ml-2">Akses & Pengguna</span>
+                     </summary>
+                     <ul className="ml-6 mt-2 space-y-2">
+                        <li className="mb-2">
+                           <NavLink
+                              to="/admin/pengguna"
+                              className="flex items-center"
+                           >
+                              <i className="fa-solid fa-user text-lg"></i>
+                              <span className="ml-2">Pengguna</span>
+                           </NavLink>
+                        </li>
+
+                        <li className="mb-2">
+                           <NavLink
+                              to="/admin/role"
+                              className="flex items-center"
+                           >
+                              <i className="fa-solid fa-user-tie text-lg"></i>
+                              <span className="ml-2">Role</span>
+                           </NavLink>
+                        </li>
+                     </ul>
+                  </details>
                </li>
 
                {/* Settings Dropdown */}

@@ -9,7 +9,8 @@ const AdminLayout = () => {
       const routeTitles = {
          '/admin': 'Dashboard',
          '/admin/home': 'Dashboard',
-         '/admin/pengguna': 'Pengguna',
+         '/admin/pengguna': 'Manajemen Pengguna',
+         '/admin/role': 'Manajemen Role',
       }
 
       setTitle(routeTitles[location.pathname] || 'Admin Panel')
