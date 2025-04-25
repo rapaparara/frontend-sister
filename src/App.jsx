@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify'
 const AdminHome = lazy(() => import('./pages/admin/Home'))
 const AdminPengguna = lazy(() => import('./pages/admin/Pengguna'))
 const AdminRole = lazy(() => import('./pages/admin/Role'))
+const AdminSekolah = lazy(() => import('./pages/admin/Sekolah'))
 const Login = lazy(() => import('./pages/auth/Login'))
 const LandingPage = lazy(() => import('./pages/landing/Home'))
 
@@ -82,6 +83,11 @@ const App = () => {
                            path="role"
                            title="Role"
                            element={<AdminRole />}
+                        />
+                        <Route
+                           path="sekolah"
+                           title="Sekolah"
+                           element={<AdminSekolah />}
                         />
                      </Route>
                   </Route>

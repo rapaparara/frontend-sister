@@ -118,7 +118,6 @@ const Sidebar = ({ children }) => {
                               <span className="ml-2">Pengguna</span>
                            </NavLink>
                         </li>
-
                         <li className="mb-2">
                            <NavLink
                               to="/admin/role"
@@ -130,6 +129,12 @@ const Sidebar = ({ children }) => {
                         </li>
                      </ul>
                   </details>
+               </li>
+               <li className="mb-2">
+                  <NavLink to="/admin/sekolah" className="flex items-center">
+                     <i className="fa-solid fa-school text-lg"></i>
+                     <span className="ml-2">Sekolah</span>
+                  </NavLink>
                </li>
 
                {/* Settings Dropdown */}

@@ -75,7 +75,7 @@ const Pengguna = () => {
          <div className="min-h-screen flex flex-col p-3">
             <div className="flex-grow">
                <Breadcrumbs />
-               <div className="text-lg font-semibold p-2">Role</div>
+               <div className="text-lg font-semibold p-2">Data Role</div>
 
                {loading ? (
                   <div className="text-center py-8">Memuat data...</div>

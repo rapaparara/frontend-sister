@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/admin/Breadcrumbs'
 import DynamicTable from '../../components/admin/DynamicTable'
 import Footer from '../../components/admin/Footer'
-import { getUsers } from '../../services/userService'
+import { getSchools } from '../../services/schoolServices'
 
 const Pengguna = () => {
    const [data, setData] = useState([])
@@ -12,7 +12,7 @@ const Pengguna = () => {
 
    const fetchData = async () => {
       try {
-         const response = await getUsers()
+         const response = await getSchools()
          setData(response.data)
          setError(null)
       } catch (err) {
@@ -31,14 +31,15 @@ const Pengguna = () => {
    }
 
    const handleAdd = () => {
-      console.log('Add new user')
+      console.log('Add new school')
    }
 
    const columns = [
       { label: 'Nama', field: 'name' },
+      { label: 'Alamat', field: 'address' },
+      { label: 'Telepon', field: 'phone' },
       { label: 'Email', field: 'email' },
-      { label: 'Role', field: 'role' },
-      { label: 'Sekolah', field: 'school_id' },
+      { label: 'Status', field: 'isActive' },
    ]
 
    const filteredData = data.filter(
@@ -65,18 +66,18 @@ const Pengguna = () => {
    )
 
    const handleEdit = (row) => {
-      console.log('Edit user:', row)
+      console.log('Edit sekolah:', row)
    }
 
    const handleDelete = (id) => {
-      console.log('Delete user dengan ID:', id)
+      console.log('Delete sekolah dengan ID:', id)
    }
    return (
       <>
          <div className="min-h-screen flex flex-col p-3">
             <div className="flex-grow">
                <Breadcrumbs />
-               <div className="text-lg font-semibold p-2">Data Pengguna</div>
+               <div className="text-lg font-semibold p-2">Data Sekolah</div>
 
                {loading ? (
                   <div className="text-center py-8">Memuat data...</div>
