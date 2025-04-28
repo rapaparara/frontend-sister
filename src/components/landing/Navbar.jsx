@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
    const [isOpen, setIsOpen] = useState(false)
@@ -7,29 +8,16 @@ const Navbar = () => {
       {
          name: 'Profil Sekolah',
          children: [
-            { name: 'Sambutan Kepala Sekolah', url: '#' },
+            { name: 'Sambutan Kepala Sekolah', url: '#sambutan' },
             { name: 'Sejarah', url: '#' },
-            { name: 'Visi & Misi', url: '#' },
-            { name: 'Kondisi Sekolah', url: '#' },
+            { name: 'Visi & Misi', url: '#visi-misi' },
+            { name: 'Kondisi Sekolah', url: '#gallery' },
          ],
       },
-      {
-         name: 'Berita',
-         children: [
-            { name: 'Contoh', url: '#' },
-            { name: 'Contoh', url: '#' },
-         ],
-      },
-      {
-         name: 'Layanan',
-         children: [
-            { name: 'Contoh', url: '#' },
-            { name: 'Contoh', url: '#' },
-         ],
-      },
+      { name: 'Berita', url: '#' },
       { name: 'Prestasi', url: '#' },
-      { name: 'Profil Alumni', url: '#' },
-      { name: 'Kontak', url: '#' },
+      { name: 'Profil Alumni', url: '#alumni' },
+      { name: 'Kontak', url: '#contact' },
    ]
    const [isScrolled, setIsScrolled] = useState(false)
 
@@ -121,7 +109,13 @@ const Navbar = () => {
 
          {/* Masuk Button */}
          <div className="navbar-end hidden lg:flex">
-            <a className="btn btn-primary font-semibold text-lg">Masuk</a>
+            <NavLink
+               to="/admin/pengguna"
+               className="btn btn-success bg-emerald-500 text-white font-semibold text-lg"
+            >
+               <i className="fa-solid fa-right-to-bracket text-lg"></i>
+               <span className="ml-2">Masuk</span>
+            </NavLink>
          </div>
 
          {/* Mobile Menu */}
