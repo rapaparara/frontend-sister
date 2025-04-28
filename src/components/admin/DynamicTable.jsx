@@ -1,4 +1,8 @@
 const DynamicTable = ({ columns, data, onSearch, onAdd, actions }) => {
+   const getNestedFieldValue = (obj, path) => {
+      return path.split('.').reduce((acc, part) => acc && acc[part], obj)
+   }
+
    return (
       <div className="container mx-auto mb-3 px-4">
          {/* Search & Add Button */}
@@ -67,7 +71,9 @@ const DynamicTable = ({ columns, data, onSearch, onAdd, actions }) => {
                         <tr key={rowIndex}>
                            <th>{rowIndex + 1}</th>
                            {columns.map((col, colIndex) => (
-                              <td key={colIndex}>{row[col.field]}</td>
+                              <td key={colIndex}>
+                                 {getNestedFieldValue(row, col.field)}
+                              </td>
                            ))}
                            {actions && <td>{actions(row)}</td>}
                         </tr>

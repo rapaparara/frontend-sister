@@ -37,8 +37,8 @@ const Pengguna = () => {
    const columns = [
       { label: 'Nama', field: 'name' },
       { label: 'Email', field: 'email' },
-      { label: 'Role', field: 'role' },
-      { label: 'Sekolah', field: 'school_id' },
+      { label: 'Role', field: 'role.name' },
+      { label: 'Sekolah', field: 'school_id.name' },
    ]
 
    const filteredData = data.filter(
