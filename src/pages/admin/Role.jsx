@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/admin/Breadcrumbs'
 import DynamicTable from '../../components/admin/DynamicTable'
 import Footer from '../../components/admin/Footer'
-import { getRoles, saveRole } from '../../services/roleServices'
+import { deleteRole, getRoles, saveRole } from '../../services/roleServices'
 import Modal from '../../components/admin/Modal'
+import { toast } from 'react-toastify'
 
 const Pengguna = () => {
    const [data, setData] = useState([])
@@ -64,16 +65,29 @@ const Pengguna = () => {
       </div>
    )
 
-   // const handleEdit = (row) => {
-   //    console.log('Edit role:', row)
-   // }
-
-   const handleDelete = (id) => {
-      console.log('Delete role dengan ID:', id)
+   const handleDelete = async (id) => {
+      setRoleIdToDelete(id)
+      setIsConfirmDeleteModalOpen(true)
+   }
+   const confirmDelete = async () => {
+      try {
+         await deleteRole(roleIdToDelete)
+         toast.success('Role berhasil dihapus!')
+         setIsConfirmDeleteModalOpen(false)
+         fetchData() // Reload data setelah delete
+      } catch (error) {
+         toast.success('Gagal menghapus role!')
+         console.log(error)
+      }
    }
 
    const [isModalOpen, setIsModalOpen] = useState(false)
    const [mode, setMode] = useState('tambah') // 'tambah' atau 'edit'
+
+   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
+      useState(false)
+   const [roleIdToDelete, setRoleIdToDelete] = useState(null)
+
    const [formData, setFormData] = useState({
       id: '',
       name: '',
@@ -102,18 +116,31 @@ const Pengguna = () => {
       setIsModalOpen(true)
    }
 
-   const handleSubmit = async () => {
-      try {
-         await saveRole(formData, mode)
-         alert('Role berhasil disimpan!')
-         setIsModalOpen(false)
+   const handleSubmit = async (e) => {
+      e.preventDefault()
 
-         const updatedRoles = await getRoles()
+      let payload = { ...formData }
+      const { id, ...rest } = formData
+      payload = rest
+
+      if (payload.permissions.length === 0) {
+         toast.error('Pilih minimal satu hak akses!')
+         return
+      }
+
+      try {
+         await saveRole(payload, mode)
+         toast.success('Role berhasil disimpan!')
+         setIsModalOpen(false)
+         fetchData()
       } catch (error) {
-         alert('Gagal menyimpan role!')
-         console.log(error)
+         toast.error(
+            'Gagal menyimpan role: ' +
+               (error.response?.data?.message || error.message)
+         )
       }
    }
+
    const handleEdit = (id) => {
       const user = id
       handleOpenModal('edit', user)
@@ -126,7 +153,10 @@ const Pengguna = () => {
          [name]: value,
       })
    }
-   const handleCloseModal = () => setIsModalOpen(false)
+   const handleCloseModal = () => {
+      setIsModalOpen(false)
+      setIsConfirmDeleteModalOpen(false)
+   }
    const allPermissions = [
       '*',
       'GET USER',
@@ -243,7 +273,6 @@ const Pengguna = () => {
                                                 }
                                              }
 
-                                             // Kalau tidak menyentuh '*', update normal
                                              return {
                                                 ...prev,
                                                 permissions: checked
@@ -282,6 +311,15 @@ const Pengguna = () => {
                         </button>
                      </div>
                   </form>
+               </Modal>
+               {/* Modal Konfirmasi Hapus */}
+               <Modal
+                  isOpen={isConfirmDeleteModalOpen}
+                  onClose={handleCloseModal}
+                  title="Konfirmasi Hapus Role"
+                  onConfirm={confirmDelete}
+               >
+                  <p>Apakah Anda yakin ingin menghapus role ini?</p>
                </Modal>
             </div>
          </div>

@@ -29,8 +29,23 @@ export const saveRole = async (data, mode) => {
 
       return response.data
    } catch (error) {
-      console.error('Error saving role:', error)
+      console.error('Error saving role:', error.response?.data || error.message)
       throw error
    }
 }
- 
+
+export const deleteRole = async (id) => {
+   try {
+      const token = localStorage.getItem('access_token')
+      const url = `/role/${id}`
+      const response = await api.delete(url, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+         },
+      })
+      return response.data
+   } catch (error) {
+      console.error('Error deleting role:', error)
+      throw error
+   }
+}
