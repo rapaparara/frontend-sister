@@ -1,8 +1,14 @@
 import Navbar from '../../components/landing/Navbar'
 import AnimatedSection from '../../components/landing/AnimatedSection'
 import { motion } from 'framer-motion'
+import { getLandingPublic } from '../../services/landingServices'
+import { useEffect, useState } from 'react'
 
 const LandingPage = () => {
+   const [school, setSchool] = useState(null)
+   const [loading, setLoading] = useState(true)
+   const [error, setError] = useState(null)
+
    const newsList = [
       {
          img: 'bg_home1.jpg',
@@ -26,9 +32,28 @@ const LandingPage = () => {
       },
    ]
 
+   useEffect(() => {
+      const fetchSchool = async () => {
+         try {
+            const result = await getLandingPublic()
+            setSchool(result.data)
+         } catch (err) {
+            setError('Failed to load school data.')
+            console.error(err)
+         } finally {
+            setLoading(false)
+         }
+      }
+
+      fetchSchool()
+   }, [])
+
+   if (loading) return <p>Loading...</p>
+   if (error) return <p>{error}</p>
+   if (!school) return <p>Data sekolah tidak ditemukan.</p>
    return (
       <div className="min-h-screen bg-gray-50 text-base-content">
-         <Navbar />
+         <Navbar schoolName={school.name} />
 
          {/* Hero Section */}
          <AnimatedSection>
@@ -45,11 +70,10 @@ const LandingPage = () => {
                      className="max-w-full"
                   >
                      <h1 className="text-4xl lg:text-6xl font-bold mb-4 text-shadow-lg">
-                        Sekolah Dasar Negeri 1 Kota Timur
+                        {school.name}
                      </h1>
                      <p className="py-4 text-lg lg:text-xl mb-6 max-w-2xl mx-auto">
-                        Jalan Pramuka No. 36, Heledulaa Utara, Kecamatan Kota
-                        Timur.
+                        {school.address}
                      </p>
                      <div className="flex flex-wrap justify-center gap-4 mt-8">
                         <a
@@ -137,10 +161,11 @@ const LandingPage = () => {
                            Visi
                         </h3>
                         <p className="leading-relaxed text-justify text-md">
-                           Menjadi sekolah unggulan yang menghasilkan generasi
-                           berkarakter, berprestasi, serta mampu bersaing di
-                           tingkat nasional maupun global dengan berlandaskan
-                           nilai-nilai luhur bangsa.
+                           <ul className="list-disc list-inside leading-relaxed text-md space-y-4">
+                              {school.visi.map((m, index) => (
+                                 <li key={index}>{m}</li>
+                              ))}
+                           </ul>
                         </p>
                      </div>
 
@@ -153,26 +178,9 @@ const LandingPage = () => {
                            Misi
                         </h3>
                         <ul className="list-disc list-inside leading-relaxed text-md space-y-4">
-                           <li>
-                              Mengembangkan potensi peserta didik secara optimal
-                              melalui pembelajaran aktif, kreatif, dan inovatif.
-                           </li>
-                           <li>
-                              Menanamkan nilai-nilai keagamaan, moral, dan
-                              kebangsaan dalam kehidupan sehari-hari.
-                           </li>
-                           <li>
-                              Meningkatkan prestasi akademik dan non-akademik
-                              siswa melalui berbagai program unggulan.
-                           </li>
-                           <li>
-                              Menciptakan lingkungan sekolah yang aman, nyaman,
-                              dan ramah anak.
-                           </li>
-                           <li>
-                              Memanfaatkan teknologi informasi untuk menunjang
-                              proses pembelajaran dan manajemen sekolah.
-                           </li>
+                           {school.misi.map((m, index) => (
+                              <li key={index}>{m}</li>
+                           ))}
                         </ul>
                      </div>
                   </div>
@@ -485,10 +493,7 @@ const LandingPage = () => {
                            <span className="text-2xl">📍</span>
                         </div>
                         <h3 className="font-semibold text-xl mb-4">Alamat</h3>
-                        <p className="text-white/80">
-                           Jalan Pramuka No. 36, Heledulaa Utara, Kecamatan Kota
-                           Timur.
-                        </p>
+                        <p className="text-white/80">{school.address}</p>
                      </div>
 
                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 text-center">
@@ -496,7 +501,7 @@ const LandingPage = () => {
                            <span className="text-2xl">📞</span>
                         </div>
                         <h3 className="font-semibold text-xl mb-4">Telepon</h3>
-                        <p className="text-white/80">(0361) 1234567</p>
+                        <p className="text-white/80">{school.phone}</p>
                      </div>
 
                      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-white/20 text-center">
@@ -504,9 +509,7 @@ const LandingPage = () => {
                            <span className="text-2xl">✉️</span>
                         </div>
                         <h3 className="font-semibold text-xl mb-4">Email</h3>
-                        <p className="text-white/80">
-                           info@sdn1kotatimur.sch.id
-                        </p>
+                        <p className="text-white/80">{school.email}</p>
                      </div>
                   </div>
 
@@ -528,7 +531,7 @@ const LandingPage = () => {
                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-10 border-b border-gray-700">
                   <div className="text-center md:text-left">
                      <h3 className="text-xl font-bold mb-4">
-                        SDN 1 Kota Timur
+                        {school.name}
                      </h3>
                      <p className="text-gray-400 text-sm">
                         Mewujudkan pendidikan berkualitas untuk semua anak

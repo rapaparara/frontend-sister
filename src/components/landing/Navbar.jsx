@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ schoolName }) => {
    const [isOpen, setIsOpen] = useState(false)
 
    const menuItems = [
@@ -42,7 +42,7 @@ const Navbar = () => {
          <div className="navbar-start">
             <a className="btn btn-ghost text-xl">
                <img className="me-2" src="/vite.svg" alt="Logo" />
-               SDN 1 Kota Timur
+               {schoolName}
             </a>
          </div>
 

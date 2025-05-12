@@ -3,9 +3,11 @@ import api from './api'
 export const getRoles = async () => {
    try {
       const token = localStorage.getItem('access_token')
+      const apiKey = import.meta.env.VITE_API_KEY
       const response = await api.get('/role', {
          headers: {
             Authorization: `Bearer ${token}`,
+            'x-api-key': apiKey,
          },
       })
       return response.data
@@ -18,12 +20,14 @@ export const getRoles = async () => {
 export const saveRole = async (data, mode) => {
    try {
       const token = localStorage.getItem('access_token')
-      const url = mode === 'edit' ? `/role/${data.id}` : '/role'
+      const apiKey = import.meta.env.VITE_API_KEY
+      const url = mode === 'edit' ? `/role/${data._id}` : '/role'
       const method = mode === 'edit' ? 'put' : 'post'
 
       const response = await api[method](url, data, {
          headers: {
             Authorization: `Bearer ${token}`,
+            'x-api-key': apiKey,
          },
       })
 

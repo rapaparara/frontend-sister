@@ -130,6 +130,16 @@ const Sidebar = ({ children }) => {
                      </ul>
                   </details>
                </li>
+
+               <li className="mb-2">
+                  <NavLink
+                     to="/admin/atur-sekolah"
+                     className="flex items-center"
+                  >
+                     <i className="fa-solid fa-cog text-lg"></i>
+                     <span className="ml-2">Atur Sekolah</span>
+                  </NavLink>
+               </li>
                <li className="mb-2">
                   <NavLink to="/admin/sekolah" className="flex items-center">
                      <i className="fa-solid fa-school text-lg"></i>
