@@ -146,40 +146,58 @@ const Sidebar = ({ children }) => {
                      <span className="ml-2">Sekolah</span>
                   </NavLink>
                </li>
-
-               {/* Settings Dropdown */}
                <li className="mb-2">
                   <details>
                      <summary className="flex items-center">
-                        <i className="fa-solid fa-gear text-lg"></i>
-                        <span className="ml-2">Settings</span>
+                        <i className="fa-solid fa-newspaper text-lg"></i>
+                        <span className="ml-2">Berita</span>
                      </summary>
                      <ul className="ml-6 mt-2 space-y-2">
-                        <li>
+                        <li className="mb-2">
                            <NavLink
-                              to="/admin/settings/profile"
+                              to="/admin/kategori-berita"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-user text-sm"></i>
-                              <span className="ml-2">Profile</span>
+                              <i className="fa-solid fa-tags text-lg"></i>
+                              <span className="ml-2">Kategori</span>
                            </NavLink>
                         </li>
-                        <li>
+                        <li className="mb-2">
                            <NavLink
-                              to="/admin/settings/security"
+                              to="/admin/berita"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-lock text-sm"></i>
-                              <span className="ml-2">Security</span>
+                              <i className="fa-solid fa-file-alt text-lg"></i>
+                              <span className="ml-2">Daftar Berita</span>
                            </NavLink>
                         </li>
-                        <li>
+                     </ul>
+                  </details>
+               </li>
+
+               <li className="mb-2">
+                  <details>
+                     <summary className="flex items-center">
+                        <i className="fa-solid fa-image text-lg"></i>
+                        <span className="ml-2">Galeri</span>
+                     </summary>
+                     <ul className="ml-6 mt-2 space-y-2">
+                        <li className="mb-2">
                            <NavLink
-                              to="/admin/settings/notifications"
+                              to="/admin/kategori-galeri"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-bell text-sm"></i>
-                              <span className="ml-2">Notifications</span>
+                              <i className="fa-solid fa-folder-open text-lg"></i>
+                              <span className="ml-2">Kategori</span>
+                           </NavLink>
+                        </li>
+                        <li className="mb-2">
+                           <NavLink
+                              to="/admin/galeri"
+                              className="flex items-center"
+                           >
+                              <i className="fa-solid fa-images text-lg"></i>
+                              <span className="ml-2">Daftar Galeri</span>
                            </NavLink>
                         </li>
                      </ul>

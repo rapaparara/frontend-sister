@@ -20,7 +20,8 @@ const AturSekolah = () => {
          try {
             const data = await getLanding()
             if (data.statusCode === 200) {
-               const { _id, name, address, phone, email, visi, misi } = data.data
+               const { _id, name, address, phone, email, visi, misi } =
+                  data.data
                setSchoolData({
                   _id,
                   name,
@@ -33,6 +34,7 @@ const AturSekolah = () => {
             }
          } catch (error) {
             console.error('Error fetching school data:', error)
+            toast.error('Gagal mengambil data sekolah:', error)
          }
       }
 
@@ -104,14 +106,10 @@ const AturSekolah = () => {
 
    const handleUpdate = async () => {
       try {
-         console.log('Updating school with ID:', schoolData._id)
-
          const result = await updateLanding(schoolData)
-         console.log(result)
          toast.success('Perubahan berhasil disimpan!')
       } catch (error) {
          toast.error('Gagal memperbarui data sekolah.')
-         console.log(error)
       }
    }
 

@@ -28,8 +28,6 @@ export const updateLanding = async (data) => {
 
       const url = `/school/${data._id}`
       const { _id, ...payload } = data
-      console.log('URL update:', url)
-      console.log('Payload update:', payload)
       
       const response = await api.put(url, payload, {
          headers: {

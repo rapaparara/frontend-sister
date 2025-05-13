@@ -13,6 +13,10 @@ const AdminLayout = () => {
          '/admin/role': 'Manajemen Role',
          '/admin/sekolah': 'Manajemen Sekolah',
          '/admin/atur-sekolah': 'Atur Sekolah',
+         '/admin/berita': 'Daftar Berita',
+         '/admin/kategori-berita': 'Kategori Berita',
+         '/admin/galeri': 'Daftar Galeri',
+         '/admin/kategori-galeri': 'Kategori Galeri',
       }
 
       setTitle(routeTitles[location.pathname] || 'Admin Panel')

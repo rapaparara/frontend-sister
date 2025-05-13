@@ -12,6 +12,10 @@ const AdminPengguna = lazy(() => import('./pages/admin/Pengguna'))
 const AdminRole = lazy(() => import('./pages/admin/Role'))
 const AdminSekolah = lazy(() => import('./pages/admin/Sekolah'))
 const AdminAturSekolah = lazy(() => import('./pages/admin/AturSekolah'))
+const AdminBerita = lazy(() => import('./pages/admin/Berita'))
+const AdminBeritaKategori = lazy(() => import('./pages/admin/BeritaKategori'))
+const AdminGaleri = lazy(() => import('./pages/admin/Galeri'))
+const AdminGaleriKategori = lazy(() => import('./pages/admin/GaleriKategori'))
 const Login = lazy(() => import('./pages/auth/Login'))
 const LandingPage = lazy(() => import('./pages/landing/Home'))
 
@@ -95,6 +99,26 @@ const App = () => {
                            path="atur-sekolah"
                            title="Atur Sekolah"
                            element={<AdminAturSekolah />}
+                        />
+                        <Route
+                           path="berita"
+                           title="Daftar Berita"
+                           element={<AdminBerita />}
+                        />
+                        <Route
+                           path="kategori-berita"
+                           title="Kategori Berita"
+                           element={<AdminBeritaKategori />}
+                        />
+                        <Route
+                           path="galeri"
+                           title="Daftar Galeri"
+                           element={<AdminGaleri />}
+                        />
+                        <Route
+                           path="kategori-galeri"
+                           title="Kategori Galeri"
+                           element={<AdminGaleriKategori />}
                         />
                      </Route>
                   </Route>
