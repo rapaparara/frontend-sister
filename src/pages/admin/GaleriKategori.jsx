@@ -9,12 +9,15 @@ import {
    saveGaleriKategori,
    deleteGaleriKategori,
 } from '../../services/galeriServices'
+import { useAuth } from '../../context/AuthContext'
 
 const GaleriKategori = () => {
    const [data, setData] = useState([])
    const [loading, setLoading] = useState(true)
    const [error, setError] = useState(null)
    const [searchTerm, setSearchTerm] = useState('')
+   const { user } = useAuth()
+   const user_id = user.sub
 
    const fetchData = async () => {
       try {
@@ -94,6 +97,7 @@ const GaleriKategori = () => {
       _id: '',
       name: '',
       description: '',
+      school_id: '',
    })
 
    const handleOpenModal = (mode, category = null) => {
@@ -103,11 +107,13 @@ const GaleriKategori = () => {
             _id: category._id || '',
             name: category.name || '',
             description: category.description || '',
+            school_id: user_id,
          })
       } else {
          setFormData({
             id: '',
             description: '',
+            school_id: user_id,
          })
       }
       setIsModalOpen(true)
