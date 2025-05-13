@@ -55,5 +55,4 @@ export const deleteUser = async (id) => {
       console.error('Error deleting role:', error)
       throw error
    }
-   user
 }
