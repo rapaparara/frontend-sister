@@ -2,23 +2,27 @@ import { useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/admin/Breadcrumbs'
 import DynamicTable from '../../components/admin/DynamicTable'
 import Footer from '../../components/admin/Footer'
-import { getUsers, saveUser, deleteUser } from '../../services/userService'
 import Modal from '../../components/admin/Modal'
 import { toast } from 'react-toastify'
-import { getRoles } from '../../services/roleServices'
+import {
+   getGaleriKategori,
+   saveGaleriKategori,
+   deleteGaleriKategori,
+} from '../../services/galeriServices'
+import { useAuth } from '../../context/AuthContext'
 
-const Pengguna = () => {
+const GaleriKategori = () => {
    const [data, setData] = useState([])
    const [loading, setLoading] = useState(true)
    const [error, setError] = useState(null)
    const [searchTerm, setSearchTerm] = useState('')
-   const [roles, setRoles] = useState([])
+   const { user } = useAuth()
+   const user_id = user.sub
 
    const fetchData = async () => {
       try {
-         const [userRes, roleRes] = await Promise.all([getUsers(), getRoles()])
-         setData(userRes.data)
-         setRoles(roleRes.data)
+         const catRes = await getGaleriKategori()
+         setData(catRes.data)
          setError(null)
       } catch (err) {
          setError(err.message)
@@ -41,14 +45,13 @@ const Pengguna = () => {
 
    const columns = [
       { label: 'Nama', field: 'name' },
-      { label: 'Email', field: 'email' },
-      { label: 'Role', field: 'role.name' },
+      { label: 'Deskripsi', field: 'description' },
    ]
 
    const filteredData = data.filter(
       (item) =>
          item.name.toLowerCase().includes(searchTerm) ||
-         item.email.toLowerCase().includes(searchTerm)
+         item.description.toLowerCase().includes(searchTerm)
    )
 
    const actions = (row) => (
@@ -75,12 +78,12 @@ const Pengguna = () => {
 
    const confirmDelete = async () => {
       try {
-         await deleteUser(userIdToDelete)
-         toast.success('Pengguna berhasil dihapus!')
+         await deleteGaleriKategori(userIdToDelete)
+         toast.success('Kategori berhasil dihapus!')
          setIsConfirmDeleteModalOpen(false)
          fetchData()
       } catch (error) {
-         toast.error('Gagal menghapus pengguna!')
+         toast.error('Gagal menghapus kategori!')
       }
    }
 
@@ -93,35 +96,31 @@ const Pengguna = () => {
    const [formData, setFormData] = useState({
       _id: '',
       name: '',
-      email: '',
-      password: '',
-      role: '',
+      description: '',
+      school_id: '',
    })
 
-   const handleOpenModal = (mode, user = null) => {
+   const handleOpenModal = (mode, category = null) => {
       setMode(mode)
-      if (mode === 'edit' && user) {
+      if (mode === 'edit' && category) {
          setFormData({
-            _id: user._id || '',
-            name: user.name || '',
-            email: user.email || '',
-            password: '',
-            role: user.role?._id || '',
+            _id: category._id || '',
+            name: category.name || '',
+            description: category.description || '',
+            school_id: user_id,
          })
       } else {
          setFormData({
             id: '',
-            name: '',
-            email: '',
-            password: '',
-            role: '',
+            description: '',
+            school_id: user_id,
          })
       }
       setIsModalOpen(true)
    }
 
-   const handleEdit = (user) => {
-      handleOpenModal('edit', user)
+   const handleEdit = (category) => {
+      handleOpenModal('edit', category)
    }
 
    const handleInputChange = (e) => {
@@ -142,21 +141,14 @@ const Pengguna = () => {
 
       const { id, ...payload } = formData
 
-      if (mode === 'tambah') {
-         if (!payload.password) {
-            toast.error('Password wajib diisi!')
-            return
-         }
-      }
-
       try {
-         await saveUser(payload, mode)
-         toast.success('Pengguna berhasil disimpan!')
+         await saveGaleriKategori(payload, mode)
+         toast.success('Kategori berhasil disimpan!')
          setIsModalOpen(false)
          fetchData()
       } catch (error) {
          toast.error(
-            'Gagal menyimpan pengguna: ' +
+            'Gagal menyimpan kategori: ' +
                (error.response?.data?.message || error.message)
          )
       }
@@ -167,7 +159,9 @@ const Pengguna = () => {
          <div className="min-h-screen flex flex-col p-3">
             <div className="flex-grow">
                <Breadcrumbs />
-               <div className="text-lg font-semibold p-2">Data Pengguna</div>
+               <div className="text-lg font-semibold p-2">
+                  Data Kategori Galeri
+               </div>
 
                {loading ? (
                   <div className="text-center py-8">Memuat data...</div>
@@ -190,8 +184,8 @@ const Pengguna = () => {
                   onClose={handleCloseModal}
                   title={
                      mode === 'tambah'
-                        ? 'Tambah Pengguna Baru'
-                        : 'Edit Pengguna'
+                        ? 'Tambah Kategori Galeri Baru'
+                        : 'Edit Kategori Galeri'
                   }
                >
                   <form onSubmit={handleSubmit}>
@@ -202,83 +196,26 @@ const Pengguna = () => {
                         <input
                            type="text"
                            name="name"
-                           placeholder="Masukkan nama pengguna"
+                           placeholder="Masukkan nama kategori"
                            className="input input-bordered w-full"
                            value={formData.name}
                            onChange={handleInputChange}
                            required
                         />
                      </div>
-
                      <div className="form-control">
                         <label className="label">
-                           <span className="label-text">Email</span>
+                           <span className="label-text">Deskripsi</span>
                         </label>
                         <input
-                           type="email"
-                           name="email"
-                           placeholder="Masukkan email pengguna"
+                           type="text"
+                           name="description"
+                           placeholder="Masukkan deskripsi"
                            className="input input-bordered w-full"
-                           value={formData.email}
+                           value={formData.description}
                            onChange={handleInputChange}
                            required
                         />
-                     </div>
-
-                     {mode === 'tambah' && (
-                        <div className="form-control">
-                           <label className="label">
-                              <span className="label-text">Password</span>
-                           </label>
-                           <input
-                              type="password"
-                              name="password"
-                              placeholder="Masukkan password"
-                              className="input input-bordered w-full"
-                              value={formData.password}
-                              onChange={handleInputChange}
-                              required
-                           />
-                        </div>
-                     )}
-
-                     {/* 
-                        // untuk edit password:
-                        {mode === 'edit' && (
-                           <div className="form-control">
-                              <label className="label">
-                                 <span className="label-text">Password (opsional)</span>
-                              </label>
-                              <input
-                                 type="password"
-                                 name="password"
-                                 placeholder="Kosongkan jika tidak ingin mengganti"
-                                 className="input input-bordered w-full"
-                                 value={formData.password}
-                                 onChange={handleInputChange}
-                              />
-                           </div>
-                        )}
-                     */}
-
-                     <div className="form-control">
-                        <label className="label">
-                           <span className="label-text">Role</span>
-                        </label>
-                        <select
-                           name="role"
-                           className="select select-bordered w-full"
-                           value={formData.role}
-                           onChange={handleInputChange}
-                           required
-                        >
-                           <option value="">Pilih Role</option>
-                           {roles.map((role) => (
-                              <option key={role._id} value={role._id}>
-                                 {role.name}
-                              </option>
-                           ))}
-                        </select>
                      </div>
 
                      <div className="modal-action mt-6">
@@ -305,7 +242,7 @@ const Pengguna = () => {
             onClose={handleCloseModal}
             title="Konfirmasi Hapus"
          >
-            <div>Apakah Anda yakin ingin menghapus pengguna ini?</div>
+            <div>Apakah Anda yakin ingin menghapus kategori ini?</div>
             <div className="modal-action">
                <button className="btn" onClick={handleCloseModal}>
                   Batal
@@ -319,4 +256,4 @@ const Pengguna = () => {
    )
 }
 
-export default Pengguna
+export default GaleriKategori

@@ -1,10 +1,10 @@
 import api from './api'
 
-export const getUsers = async () => {
+export const getGaleri = async () => {
    try {
       const token = localStorage.getItem('access_token')
       const apiKey = import.meta.env.VITE_API_KEY
-      const response = await api.get('/user', {
+      const response = await api.get(`/gallery`, {
          headers: {
             Authorization: `Bearer ${token}`,
             'x-api-key': apiKey,
@@ -12,16 +12,34 @@ export const getUsers = async () => {
       })
       return response.data
    } catch (error) {
-      console.error('Error fetching users:', error)
+      console.error('Error fetching gallery data:', error)
       throw error
    }
 }
 
-export const saveUser = async (data, mode) => {
+export const getGaleriKategori = async () => {
    try {
       const token = localStorage.getItem('access_token')
       const apiKey = import.meta.env.VITE_API_KEY
-      const url = mode === 'edit' ? `/user/${data._id}` : '/user'
+      const response = await api.get(`/gallery-category`, {
+         headers: {
+            Authorization: `Bearer ${token}`,
+            'x-api-key': apiKey,
+         },
+      })
+      return response.data
+   } catch (error) {
+      console.error('Error fetching gallery category data:', error)
+      throw error
+   }
+}
+
+export const saveGaleriKategori = async (data, mode) => {
+   try {
+      const token = localStorage.getItem('access_token')
+      const apiKey = import.meta.env.VITE_API_KEY
+      const url =
+         mode === 'edit' ? `/gallery-category/${data._id}` : '/gallery-category'
       const method = mode === 'edit' ? 'put' : 'post'
       const { _id, ...payload } = data
 
@@ -34,16 +52,19 @@ export const saveUser = async (data, mode) => {
 
       return response.data
    } catch (error) {
-      console.error('Error saving user:', error.response?.data || error.message)
+      console.error(
+         'Error saving gallery category:',
+         error.response?.data || error.message
+      )
       throw error
    }
 }
 
-export const deleteUser = async (id) => {
+export const deleteGaleriKategori = async (id) => {
    try {
       const token = localStorage.getItem('access_token')
       const apiKey = import.meta.env.VITE_API_KEY
-      const url = `/user/${id}`
+      const url = `/gallery-category/${id}`
       const response = await api.delete(url, {
          headers: {
             Authorization: `Bearer ${token}`,
@@ -52,7 +73,7 @@ export const deleteUser = async (id) => {
       })
       return response.data
    } catch (error) {
-      console.error('Error deleting role:', error)
+      console.error('Error deleting gallery category:', error)
       throw error
    }
 }

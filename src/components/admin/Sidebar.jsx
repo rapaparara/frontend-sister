@@ -2,9 +2,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../context/TitleContext'
 import ThemeSelector from '../../utils/ThemeSelector'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../context/AuthContext'
 
 const Sidebar = ({ children }) => {
    const { title } = useTitle()
+   const { user } = useAuth()
    const navigate = useNavigate()
 
    const handleLogout = () => {
@@ -118,58 +120,92 @@ const Sidebar = ({ children }) => {
                               <span className="ml-2">Pengguna</span>
                            </NavLink>
                         </li>
+                        {user?.role.slug === 'superadmin' && (
+                           <li className="mb-2">
+                              <NavLink
+                                 to="/admin/role"
+                                 className="flex items-center"
+                              >
+                                 <i className="fa-solid fa-user-tie text-lg"></i>
+                                 <span className="ml-2">Role</span>
+                              </NavLink>
+                           </li>
+                        )}
+                     </ul>
+                  </details>
+               </li>
+
+               {user?.role.slug === 'admin' && (
+                  <li className="mb-2">
+                     <NavLink
+                        to="/admin/atur-sekolah"
+                        className="flex items-center"
+                     >
+                        <i className="fa-solid fa-cog text-lg"></i>
+                        <span className="ml-2">Atur Sekolah</span>
+                     </NavLink>
+                  </li>
+               )}
+               {user?.role.slug === 'superadmin' && (
+                  <li className="mb-2">
+                     <NavLink to="/admin/sekolah" className="flex items-center">
+                        <i className="fa-solid fa-school text-lg"></i>
+                        <span className="ml-2">Sekolah</span>
+                     </NavLink>
+                  </li>
+               )}
+               <li className="mb-2">
+                  <details>
+                     <summary className="flex items-center">
+                        <i className="fa-solid fa-newspaper text-lg"></i>
+                        <span className="ml-2">Berita</span>
+                     </summary>
+                     <ul className="ml-6 mt-2 space-y-2">
                         <li className="mb-2">
                            <NavLink
-                              to="/admin/role"
+                              to="/admin/kategori-berita"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-user-tie text-lg"></i>
-                              <span className="ml-2">Role</span>
+                              <i className="fa-solid fa-tags text-lg"></i>
+                              <span className="ml-2">Kategori</span>
+                           </NavLink>
+                        </li>
+                        <li className="mb-2">
+                           <NavLink
+                              to="/admin/berita"
+                              className="flex items-center"
+                           >
+                              <i className="fa-solid fa-file-alt text-lg"></i>
+                              <span className="ml-2">Daftar Berita</span>
                            </NavLink>
                         </li>
                      </ul>
                   </details>
                </li>
-               <li className="mb-2">
-                  <NavLink to="/admin/sekolah" className="flex items-center">
-                     <i className="fa-solid fa-school text-lg"></i>
-                     <span className="ml-2">Sekolah</span>
-                  </NavLink>
-               </li>
 
-               {/* Settings Dropdown */}
                <li className="mb-2">
                   <details>
                      <summary className="flex items-center">
-                        <i className="fa-solid fa-gear text-lg"></i>
-                        <span className="ml-2">Settings</span>
+                        <i className="fa-solid fa-image text-lg"></i>
+                        <span className="ml-2">Galeri</span>
                      </summary>
                      <ul className="ml-6 mt-2 space-y-2">
-                        <li>
+                        <li className="mb-2">
                            <NavLink
-                              to="/admin/settings/profile"
+                              to="/admin/kategori-galeri"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-user text-sm"></i>
-                              <span className="ml-2">Profile</span>
+                              <i className="fa-solid fa-folder-open text-lg"></i>
+                              <span className="ml-2">Kategori</span>
                            </NavLink>
                         </li>
-                        <li>
+                        <li className="mb-2">
                            <NavLink
-                              to="/admin/settings/security"
+                              to="/admin/galeri"
                               className="flex items-center"
                            >
-                              <i className="fa-solid fa-lock text-sm"></i>
-                              <span className="ml-2">Security</span>
-                           </NavLink>
-                        </li>
-                        <li>
-                           <NavLink
-                              to="/admin/settings/notifications"
-                              className="flex items-center"
-                           >
-                              <i className="fa-solid fa-bell text-sm"></i>
-                              <span className="ml-2">Notifications</span>
+                              <i className="fa-solid fa-images text-lg"></i>
+                              <span className="ml-2">Daftar Galeri</span>
                            </NavLink>
                         </li>
                      </ul>
