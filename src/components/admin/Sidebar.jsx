@@ -2,9 +2,11 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useTitle } from '../../context/TitleContext'
 import ThemeSelector from '../../utils/ThemeSelector'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../context/AuthContext'
 
 const Sidebar = ({ children }) => {
    const { title } = useTitle()
+   const { user } = useAuth()
    const navigate = useNavigate()
 
    const handleLogout = () => {
@@ -118,34 +120,40 @@ const Sidebar = ({ children }) => {
                               <span className="ml-2">Pengguna</span>
                            </NavLink>
                         </li>
-                        <li className="mb-2">
-                           <NavLink
-                              to="/admin/role"
-                              className="flex items-center"
-                           >
-                              <i className="fa-solid fa-user-tie text-lg"></i>
-                              <span className="ml-2">Role</span>
-                           </NavLink>
-                        </li>
+                        {user?.role.slug === 'superadmin' && (
+                           <li className="mb-2">
+                              <NavLink
+                                 to="/admin/role"
+                                 className="flex items-center"
+                              >
+                                 <i className="fa-solid fa-user-tie text-lg"></i>
+                                 <span className="ml-2">Role</span>
+                              </NavLink>
+                           </li>
+                        )}
                      </ul>
                   </details>
                </li>
 
-               <li className="mb-2">
-                  <NavLink
-                     to="/admin/atur-sekolah"
-                     className="flex items-center"
-                  >
-                     <i className="fa-solid fa-cog text-lg"></i>
-                     <span className="ml-2">Atur Sekolah</span>
-                  </NavLink>
-               </li>
-               <li className="mb-2">
-                  <NavLink to="/admin/sekolah" className="flex items-center">
-                     <i className="fa-solid fa-school text-lg"></i>
-                     <span className="ml-2">Sekolah</span>
-                  </NavLink>
-               </li>
+               {user?.role.slug === 'admin' && (
+                  <li className="mb-2">
+                     <NavLink
+                        to="/admin/atur-sekolah"
+                        className="flex items-center"
+                     >
+                        <i className="fa-solid fa-cog text-lg"></i>
+                        <span className="ml-2">Atur Sekolah</span>
+                     </NavLink>
+                  </li>
+               )}
+               {user?.role.slug === 'superadmin' && (
+                  <li className="mb-2">
+                     <NavLink to="/admin/sekolah" className="flex items-center">
+                        <i className="fa-solid fa-school text-lg"></i>
+                        <span className="ml-2">Sekolah</span>
+                     </NavLink>
+                  </li>
+               )}
                <li className="mb-2">
                   <details>
                      <summary className="flex items-center">

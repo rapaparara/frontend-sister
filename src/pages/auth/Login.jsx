@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { login } from '../../services/authService'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../context/AuthContext'
+import { jwtDecode } from 'jwt-decode'
 
 const Login = () => {
    const [theme, setTheme] = useState('light')
@@ -9,6 +11,7 @@ const Login = () => {
    const [password, setPassword] = useState('')
    const [loading, setLoading] = useState(false)
    const [error, setError] = useState('')
+   const { setUser } = useAuth()
    const navigate = useNavigate()
 
    useEffect(() => {
@@ -30,6 +33,10 @@ const Login = () => {
          if (response.access_token) {
             localStorage.setItem('access_token', response.access_token)
          }
+
+         const decoded = jwtDecode(response.access_token)
+         setUser(decoded)
+
          toast.success('Berhasil masuk!')
          navigate('/admin')
       } catch (err) {
